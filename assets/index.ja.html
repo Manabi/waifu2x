@@ -9,8 +9,9 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" rel="stylesheet" type="text/css">
     <link href="style.css" rel="stylesheet" type="text/css">
     <link href="mobile.css" rel="stylesheet" type="text/css" media="screen and (max-width: 768px) and (min-width: 0px)">
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/URI.js/1.18.1/URI.min.js"></script>
     <script type="text/javascript" src="ui.js"></script>
     <title>waifu2x</title>
   </head>
@@ -41,6 +42,38 @@
 	<a href="index.fr.html">
 	  Français
 	</a>
+	/
+	<a href="index.de.html">
+	  Deutsch
+	</a>
+	/
+	<a href="index.tr.html">
+	  Türkçe
+	</a>
+	/
+	<a href="index.zh-CN.html">
+	  简体中文
+	</a>
+	/
+	<a href="index.zh-TW.html">
+	  繁體中文
+	</a>
+	/
+	<a href="index.ko.html">
+	  한국어
+	</a>
+	/
+	<a href="index.nl.html">
+	  Nederlands
+	</a>
+	/
+	<a href="index.ca.html">
+	  Català
+	</a>
+	/
+	<a href="index.ro.html">
+	  Română
+	</a>
       </div>
       <p>深層畳み込みニューラルネットワークによる二次元画像のための超解像システム。 写真にも対応。</p>
       <p class="margin1 link-box">
@@ -61,8 +94,8 @@
 	      ファイルを選択: 
 	      <input type="file" id="file" name="file"></div>
 	  </div>
-	  <div class="option-hint">
-	    制限: サイズ: 3MB, ノイズ除去: 2560x2560px, 拡大(前): 1280x1280px.
+	  <div class="option-hint file_limits">
+	    制限: サイズ: 5MB, ノイズ除去: 3000x3000px, 拡大(前): 1500x1500px.
 	  </div>
 	</div>
 	<div class="option-box">
@@ -90,9 +123,14 @@
 	    </div>
 	  </div>
 	  <div class="option-right">
-	    <label><input type="radio" name="noise" class="radio" value="0">
+	    <label><input type="radio" name="noise" class="radio" value="-1">
 	      <span class="r-text">
 		なし
+	      </span>
+	    </label>
+	    <label><input type="radio" name="noise" class="radio" value="0" checked>
+	      <span class="r-text">
+		低
 	      </span>
 	    </label>
 	    <label><input type="radio" name="noise" class="radio" value="1" checked>
@@ -123,7 +161,7 @@
 	    <div class="option-left-small"></div>
 	  </div>
 	  <div class="option-right">
-	    <label><input type="radio" name="scale" class="radio" value="0" checked>
+	    <label><input type="radio" name="scale" class="radio" value="-1" checked>
 	      <span class="r-text">
 		なし
 	      </span>
@@ -140,6 +178,7 @@
 	    </label>
 	  </div>
 	</div>
+	
 	
 	  <input type="submit" class="button" value="実行">
 	

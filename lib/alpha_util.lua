@@ -40,8 +40,7 @@ function alpha_util.make_border(rgb, alpha, offset)
 	 collectgarbage()
       end
    end
-   rgb[torch.gt(rgb, 1.0)] = 1.0
-   rgb[torch.lt(rgb, 0.0)] = 0.0
+   rgb:clamp(0.0, 1.0)
 
    return rgb
 end
@@ -62,6 +61,26 @@ function alpha_util.composite(rgb, alpha, model2x)
    out[3]:copy(rgb[3])
    out[4]:copy(alpha)
    return out
+end
+function alpha_util.fill(fg, alpha, val)
+   assert(fg:size(2) == alpha:size(2) and fg:size(3) == alpha:size(3))
+   local conversion = false
+   fg, conversion = iproc.byte2float(fg)
+   val = val or 0
+   fg = fg:clone()
+   bg = fg:clone():fill(val)
+   bg[1]:cmul(1-alpha)
+   bg[2]:cmul(1-alpha)
+   bg[3]:cmul(1-alpha)
+   fg[1]:cmul(alpha)
+   fg[2]:cmul(alpha)
+   fg[3]:cmul(alpha)
+
+   local ret = bg:add(fg)
+   if conversion then
+      ret = iproc.float2byte(ret)
+   end
+   return ret
 end
 
 local function test()

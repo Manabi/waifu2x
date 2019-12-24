@@ -9,8 +9,9 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" rel="stylesheet" type="text/css">
     <link href="style.css" rel="stylesheet" type="text/css">
     <link href="mobile.css" rel="stylesheet" type="text/css" media="screen and (max-width: 768px) and (min-width: 0px)">
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/URI.js/1.18.1/URI.min.js"></script>
     <script type="text/javascript" src="ui.js"></script>
     <title>waifu2x</title>
   </head>
@@ -41,6 +42,38 @@
 	<a href="index.fr.html">
 	  Français
 	</a>
+	/
+	<a href="index.de.html">
+	  Deutsch
+	</a>
+	/
+	<a href="index.tr.html">
+	  Türkçe
+	</a>
+	/
+	<a href="index.zh-CN.html">
+	  简体中文
+	</a>
+	/
+	<a href="index.zh-TW.html">
+	  繁體中文
+	</a>
+	/
+	<a href="index.ko.html">
+	  한국어
+	</a>
+	/
+	<a href="index.nl.html">
+	  Nederlands
+	</a>
+	/
+	<a href="index.ca.html">
+	  Català
+	</a>
+	/
+	<a href="index.ro.html">
+	  Română
+	</a>
       </div>
       <p><%= t[:description] %></p>
       <p class="margin1 link-box">
@@ -61,7 +94,7 @@
 	      <%= t[:choose_file] %>: 
 	      <input type="file" id="file" name="file"></div>
 	  </div>
-	  <div class="option-hint">
+	  <div class="option-hint file_limits">
 	    <%= t[:file_limits] %>
 	  </div>
 	</div>
@@ -90,9 +123,14 @@
 	    </div>
 	  </div>
 	  <div class="option-right">
-	    <label><input type="radio" name="noise" class="radio" value="0">
+	    <label><input type="radio" name="noise" class="radio" value="-1">
 	      <span class="r-text">
 		<%= t[:nr_none] %>
+	      </span>
+	    </label>
+	    <label><input type="radio" name="noise" class="radio" value="0" checked>
+	      <span class="r-text">
+		<%= t[:nr_low] %>
 	      </span>
 	    </label>
 	    <label><input type="radio" name="noise" class="radio" value="1" checked>
@@ -123,7 +161,7 @@
 	    <div class="option-left-small"></div>
 	  </div>
 	  <div class="option-right">
-	    <label><input type="radio" name="scale" class="radio" value="0" checked>
+	    <label><input type="radio" name="scale" class="radio" value="-1" checked>
 	      <span class="r-text">
 		<%= t[:up_none] %>
 	      </span>
@@ -140,6 +178,83 @@
 	    </label>
 	  </div>
 	</div>
+	<% if false # comment out %>
+	<div class="option-box">
+	  <div class="option-left">
+	    <%= t[:tta] %>:
+	    <div class="option-left-small"></div>
+	  </div>
+	  <div class="option-right">
+	    <label><input type="radio" name="tta_level" class="radio" value="1" checked>
+	      <span class="r-text">
+		1 pass
+	      </span>
+	    </label>
+	    <label><input type="radio" name="tta_level" class="radio" value="2" checked>
+	      <span class="r-text">
+		2 pass
+	      </span>
+	    </label>
+	    <label><input type="radio" name="tta_level" class="radio" value="4">
+	      <span class="r-text">
+		4 pass
+	      </span>
+	    </label>
+	    <label><input type="radio" name="tta_level" class="radio" value="8">
+	      <span class="r-text">
+		8 pass
+	      </span>
+	    </label>
+	    <label><input type="radio" name="tta_level" class="radio" value="0" checked>
+	      <span class="r-text">
+		<%= t[:tta_best_effort] %>
+	      </span>
+	    </label>
+	  </div>
+	  <div class="option-hint">
+	    <%= t[:tta_hint] %>
+	    <a href="#" class="tta_rule">
+	      <%= t[:tta_rule] %>
+	    </a>
+	    <div style="display:none" class="tta_rule_text">
+	      <table>
+		<tr>
+		  <td>
+		    &lt;= 452x452
+		  </td>
+		  <td>
+		    8 pass
+		  </td>
+		</tr>
+		<tr>
+		  <td>
+		    &lt;= 640x640 
+		  </td>
+		  <td>
+		    4 pass
+		  </td>
+		</tr>
+		<tr>
+		  <td>
+		    &lt;= 905x905
+		  </td>
+		  <td>
+		    2 pass
+		  </td>
+		</tr>
+		<tr>
+		  <td>
+		    else
+		  </td>
+		  <td>
+		    1 pass
+		  </td>
+		</tr>
+	      </table>
+	    </div>
+	  </div>
+	</div>
+	<% end %>
 	<% if t[:button_convert] && !t[:button_convert].empty? %>
 	  <input type="submit" class="button" value="<%= t[:button_convert] %>">
 	<% else %>
